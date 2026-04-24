@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0d0d0d;
+  --color-matrix: #00ff41;
+  --color-neon: #ff00ff;
+  --color-cyber: #00ffff;
+  --color-warn: #ff8800;
+
+  --shadow-glow-green: 0 0 10px rgba(0, 255, 65, 0.4), 0 0 20px rgba(0, 255, 65, 0.2);
+  --shadow-glow-pink: 0 0 10px rgba(255, 0, 255, 0.4), 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+
+:root {
+  --background: #0d0d0d;
+  --foreground: #00ff41;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  -ms-overflow-style: none;  /* IE e Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.95; }
+  5% { opacity: 0.85; }
+  10% { opacity: 0.95; }
+  15% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 { transform: rotateY(180deg); }
+  .rotate-y-90 { transform: rotateY(90deg); }
+  .rotate-y--90 { transform: rotateY(-90deg); }
+  .rotate-x-90 { transform: rotateX(90deg); }
+  .rotate-x--90 { transform: rotateX(-90deg); }
+  .translate-z-40 { transform: translateZ(40px); }
+}
+@keyframes rotateSlow {
+  0% {
+    transform: rotateX(-15deg) rotateY(0deg) translateY(0px);
+  }
+  50% {
+    transform: rotateX(-15deg) rotateY(180deg) translateY(-15px); /* Flutua 15px */
+  }
+  100% {
+    transform: rotateX(-15deg) rotateY(360deg) translateY(0px);
+  }
+}
+.animate-rotate-slow {
+  animation: rotateSlow 15s linear infinite; /* 15 segundos para uma volta completa */
+}
